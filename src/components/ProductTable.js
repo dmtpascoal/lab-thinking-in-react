@@ -15,8 +15,7 @@ class ProductTable extends React.Component {
                 return (
                   <ProductRow
                     key={product.id}
-                    name={product.name}
-                    price={product.price}
+                    {...product}
                   />
                 );
               })}
