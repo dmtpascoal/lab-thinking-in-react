@@ -1,29 +1,40 @@
 import React from 'react';
-
 class SearchBar extends React.Component {
-    state = {
-        searchQuery: '',
+  state = {
+    searchQuery: '',
+    inStock: true,
+  };
+  handleOnchange = (event) => {
+    let { value, name, type } = event.target;
+    if (type === 'checkbox') {
+      value = event.target.checked;
     }
-
-    handleOnChange = (event) => {
-        this.setState({
-            searchQuery: event.target.value
-        }, () => {
-            this.props.onFilter(this.state.searchQuery);
-        })
-    }
-
-
-    render() {
-        return(
-            <form>
-                <input type="text"
-                 name="searchQuery" 
-                 value={this.state.searchQuery} 
-                 onChange={this.handleOnChange}/>
-            </form>
-        )
-    }
+    this.setState(
+      {
+        [name]: value,
+      },
+      () => {
+        this.props.onFilter(this.state);
+      }
+    );
+  };
+  render() {
+    return (
+      <form>
+        <input
+          type="text"
+          name="searchQuery"
+          value={this.state.searchQuery}
+          onChange={this.handleOnchange}
+        />
+        <input
+          type="checkbox"
+          name="inStock"
+          value={this.state.inStock}
+          onChange={this.handleOnchange}
+        />
+      </form>
+    );
+  }
 }
-
 export default SearchBar;
